@@ -13,9 +13,9 @@ use Inertia\Inertia;
 Route::get('/', fn() => Inertia::render('Home'));
 
 // ─── Authentification ──────────────────────────────────────────────
-Route::get('/Login',  [AuthController::class, 'showLogin'])->name('Login');
-Route::post('/Login', [AuthController::class, 'Login'])->name('Login.submit');
-Route::post('/Logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/login',  [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'Login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ─── Inscription ───────────────────────────────────────────────────
 Route::get('/inscription',        [RegistrationController::class, 'chooseRole'])->name('register.choose');
