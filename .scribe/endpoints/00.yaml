@@ -1,0 +1,742 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/auth/register
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Inscription
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: zbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      role:
+        custom: []
+        name: role
+        description: ''
+        required: true
+        example: club
+        type: string
+        enumValues:
+          - joueur
+          - club
+          - agent
+          - recruteur
+          - admin
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: b
+      email: zbailey@example.net
+      password: architecto
+      role: club
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/auth/login
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Connexion
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      password: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/players
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"data":[{"id":1,"user_id":2,"declares_free_agent":true,"free_agent_proof_type":"attestation_federation","free_agent_proof_reference":"AFF-2026-001","verification_status":"verifie","created_at":"2026-04-01T13:30:37.000000Z","updated_at":"2026-04-01T13:30:37.000000Z","first_name":"","last_name":"","photo":null,"date_of_birth":null,"nationality":null,"bio":null,"position":null,"strong_foot":"right","height_cm":null,"weight_kg":null,"contract_status":"free","contract_end_date":null,"club_user_id":null,"agent_user_id":null,"matches_played":0,"goals":0,"assists":0,"yellow_cards":0,"red_cards":0,"is_premium":false,"available":true,"visibility_score":0,"user":{"id":2,"name":"Joueur Libre Demo","email":"joueur@example.com","email_verified_at":null,"created_at":"2026-04-01T13:30:37.000000Z","updated_at":"2026-04-01T13:30:37.000000Z","role":"joueur","locale":"fr","is_verified":true,"status":"pending"}},{"id":2,"user_id":7,"declares_free_agent":true,"free_agent_proof_type":null,"free_agent_proof_reference":null,"verification_status":"en_attente","created_at":"2026-06-27T15:52:36.000000Z","updated_at":"2026-06-27T15:52:36.000000Z","first_name":"Test","last_name":"Joueur","photo":null,"date_of_birth":"2000-05-15T00:00:00.000000Z","nationality":"BFA","bio":null,"position":"ST","strong_foot":"right","height_cm":178,"weight_kg":72,"contract_status":"free","contract_end_date":null,"club_user_id":null,"agent_user_id":null,"matches_played":0,"goals":0,"assists":0,"yellow_cards":0,"red_cards":0,"is_premium":false,"available":true,"visibility_score":0,"user":{"id":7,"name":"Test Joueur","email":"joueur@test.com","email_verified_at":null,"created_at":"2026-06-27T15:50:06.000000Z","updated_at":"2026-06-27T15:50:06.000000Z","role":"joueur","locale":"fr","is_verified":false,"status":"active"}}],"meta":{"current_page":1,"per_page":20,"total":2,"last_page":1}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/players/{playerProfile_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      playerProfile_id:
+        custom: []
+        name: playerProfile_id
+        description: 'The ID of the playerProfile.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      playerProfile_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"data":{"id":1,"user_id":2,"declares_free_agent":true,"free_agent_proof_type":"attestation_federation","free_agent_proof_reference":"AFF-2026-001","verification_status":"verifie","created_at":"2026-04-01T13:30:37.000000Z","updated_at":"2026-04-01T13:30:37.000000Z","first_name":"","last_name":"","photo":null,"date_of_birth":null,"nationality":null,"bio":null,"position":null,"strong_foot":"right","height_cm":null,"weight_kg":null,"contract_status":"free","contract_end_date":null,"club_user_id":null,"agent_user_id":null,"matches_played":0,"goals":0,"assists":0,"yellow_cards":0,"red_cards":0,"is_premium":false,"available":true,"visibility_score":0,"user":{"id":2,"name":"Joueur Libre Demo","email":"joueur@example.com","email_verified_at":null,"created_at":"2026-04-01T13:30:37.000000Z","updated_at":"2026-04-01T13:30:37.000000Z","role":"joueur","locale":"fr","is_verified":true,"status":"pending"},"videos":[]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/auth/me
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Utilisateur connecté'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/auth/logout
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Déconnexion
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/players
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      first_name:
+        custom: []
+        name: first_name
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      date_of_birth:
+        custom: []
+        name: date_of_birth
+        description: 'Must be a valid date. Must be a date before <code>-15 years</code>.'
+        required: true
+        example: '2007-07-25'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      nationality:
+        custom: []
+        name: nationality
+        description: 'Must be 3 characters.'
+        required: true
+        example: ngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      position:
+        custom: []
+        name: position
+        description: ''
+        required: true
+        example: ST
+        type: string
+        enumValues:
+          - GK
+          - CB
+          - LB
+          - RB
+          - CDM
+          - CM
+          - CAM
+          - LW
+          - RW
+          - ST
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      strong_foot:
+        custom: []
+        name: strong_foot
+        description: ''
+        required: true
+        example: both
+        type: string
+        enumValues:
+          - left
+          - right
+          - both
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      height_cm:
+        custom: []
+        name: height_cm
+        description: 'Must be at least 140. Must not be greater than 220.'
+        required: false
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      weight_kg:
+        custom: []
+        name: weight_kg
+        description: 'Must be at least 40. Must not be greater than 120.'
+        required: false
+        example: 15
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      contract_status:
+        custom: []
+        name: contract_status
+        description: ''
+        required: true
+        example: with_agent
+        type: string
+        enumValues:
+          - free
+          - contracted
+          - with_agent
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      contract_end_date:
+        custom: []
+        name: contract_end_date
+        description: 'This field is required when <code>contract_status</code> is <code>contracted</code>. Must be a valid date.'
+        required: false
+        example: '2026-06-29T12:24:36'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      bio:
+        custom: []
+        name: bio
+        description: 'Must not be greater than 1000 characters.'
+        required: false
+        example: 'y'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      available:
+        custom: []
+        name: available
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      first_name: b
+      last_name: 'n'
+      date_of_birth: '2007-07-25'
+      nationality: ngz
+      position: ST
+      strong_foot: both
+      height_cm: 17
+      weight_kg: 15
+      contract_status: with_agent
+      contract_end_date: '2026-06-29T12:24:36'
+      bio: 'y'
+      available: false
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/v1/players/{playerProfile_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      playerProfile_id:
+        custom: []
+        name: playerProfile_id
+        description: 'The ID of the playerProfile.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      playerProfile_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      first_name:
+        custom: []
+        name: first_name
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      date_of_birth:
+        custom: []
+        name: date_of_birth
+        description: 'Must be a valid date. Must be a date before <code>-15 years</code>.'
+        required: true
+        example: '2007-07-25'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      nationality:
+        custom: []
+        name: nationality
+        description: 'Must be 3 characters.'
+        required: true
+        example: ngz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      position:
+        custom: []
+        name: position
+        description: ''
+        required: true
+        example: LB
+        type: string
+        enumValues:
+          - GK
+          - CB
+          - LB
+          - RB
+          - CDM
+          - CM
+          - CAM
+          - LW
+          - RW
+          - ST
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      strong_foot:
+        custom: []
+        name: strong_foot
+        description: ''
+        required: true
+        example: left
+        type: string
+        enumValues:
+          - left
+          - right
+          - both
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      height_cm:
+        custom: []
+        name: height_cm
+        description: 'Must be at least 140. Must not be greater than 220.'
+        required: false
+        example: 17
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      weight_kg:
+        custom: []
+        name: weight_kg
+        description: 'Must be at least 40. Must not be greater than 120.'
+        required: false
+        example: 15
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      contract_status:
+        custom: []
+        name: contract_status
+        description: ''
+        required: true
+        example: with_agent
+        type: string
+        enumValues:
+          - free
+          - contracted
+          - with_agent
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      contract_end_date:
+        custom: []
+        name: contract_end_date
+        description: 'This field is required when <code>contract_status</code> is <code>contracted</code>. Must be a valid date.'
+        required: false
+        example: '2026-06-29T12:24:36'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      bio:
+        custom: []
+        name: bio
+        description: 'Must not be greater than 1000 characters.'
+        required: false
+        example: 'y'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      available:
+        custom: []
+        name: available
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      first_name: b
+      last_name: 'n'
+      date_of_birth: '2007-07-25'
+      nationality: ngz
+      position: LB
+      strong_foot: left
+      height_cm: 17
+      weight_kg: 15
+      contract_status: with_agent
+      contract_end_date: '2026-06-29T12:24:36'
+      bio: 'y'
+      available: true
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/players/{playerProfile_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      playerProfile_id:
+        custom: []
+        name: playerProfile_id
+        description: 'The ID of the playerProfile.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      playerProfile_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

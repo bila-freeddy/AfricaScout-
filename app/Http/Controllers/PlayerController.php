@@ -69,4 +69,3 @@ class PlayerController extends Controller
         ];
     }
 }
-EOF

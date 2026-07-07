@@ -8,19 +8,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PlayerVideo extends Model
 {
     protected $fillable = [
-        'player_id',
-        'uploaded_by_user_id',
+        'player_profile_id',
         'title',
-        'video_url',
+        's3_key',
+        'thumbnail_url',
+        'duration_seconds',
+        'views_count',
+        'is_highlight',
+        'order',
     ];
 
-    public function player(): BelongsTo
+    protected function casts(): array
     {
-        return $this->belongsTo(Player::class);
+        return [
+            'is_highlight' => 'boolean',
+        ];
     }
 
-    public function uploader(): BelongsTo
+    public function playerProfile(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'uploaded_by_user_id');
+        return $this->belongsTo(PlayerProfile::class);
     }
 }
