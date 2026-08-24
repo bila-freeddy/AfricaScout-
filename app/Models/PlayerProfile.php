@@ -47,6 +47,8 @@ class PlayerProfile extends Model
     protected $appends = [
         'age',
         'photo_url',
+        'full_name',
+        'initials',
     ];
 
     /*
@@ -93,5 +95,25 @@ class PlayerProfile extends Model
         }
 
         return asset('storage/' . $this->photo);
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return trim(
+            $this->first_name . ' ' . $this->last_name
+        );
+    }
+
+    public function getInitialsAttribute(): string
+    {
+        $firstInitial = $this->first_name
+            ? substr($this->first_name, 0, 1)
+            : '';
+
+        $lastInitial = $this->last_name
+            ? substr($this->last_name, 0, 1)
+            : '';
+
+        return strtoupper($firstInitial . $lastInitial);
     }
 }

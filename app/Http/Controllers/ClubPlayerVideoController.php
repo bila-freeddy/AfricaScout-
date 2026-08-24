@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Player;
+use App\Models\PlayerProfile;
 use App\Models\PlayerVideo;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -10,10 +10,25 @@ use Illuminate\Http\Request;
 
 class ClubPlayerVideoController extends Controller
 {
-    public function store(Request $request, Player $player): RedirectResponse
-    {
+    /**
+     * Permet à un club d'ajouter une vidéo au profil d'un joueur
+     * dont il est responsable.
+     *
+     * Un joueur libre peut également gérer ses propres vidéos
+     * via PlayerVideoController (API).
+     */
+    public function store(
+        Request $request,
+        PlayerProfile $playerProfile
+    ): RedirectResponse {
         $currentUser = $this->resolveCurrentUser();
-        abort_unless($currentUser->role === 'club', 403);
+
+        // Le club doit être le club associé au profil du joueur.
+        abort_unless(
+            $currentUser->role === 'club'
+            && $playerProfile->club_user_id === $currentUser->id,
+            403
+        );
 
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -21,17 +36,24 @@ class ClubPlayerVideoController extends Controller
         ]);
 
         PlayerVideo::query()->create([
-            'player_id' => $player->id,
-            'uploaded_by_user_id' => $currentUser->id,
+            'player_profile_id' => $playerProfile->id,
             'title' => trim($validated['title']),
-            'video_url' => trim($validated['video_url']),
+            's3_key' => trim($validated['video_url']),
         ]);
 
         return back();
     }
 
+    /**
+     * Retourne l'utilisateur courant.
+     *
+     * Méthode temporaire utilisée pendant la phase actuelle.
+     * Elle pourra être remplacée par Auth::user() lorsque
+     * l'authentification Web sera complètement branchée.
+     */
     private function resolveCurrentUser(): User
     {
-        return User::query()->find(1) ?? User::query()->firstOrFail();
+        return User::query()->find(1)
+            ?? User::query()->firstOrFail();
     }
 }

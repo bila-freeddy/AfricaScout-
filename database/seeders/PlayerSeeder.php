@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Player;
-use App\Models\Video;
+use App\Models\PlayerProfile;
+use App\Models\PlayerVideo;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class PlayerSeeder extends Seeder
 {
@@ -12,124 +14,118 @@ class PlayerSeeder extends Seeder
     {
         $players = [
             [
-                'name'        => 'Amadou Konaté',
-                'initials'    => 'AK',
-                'status'      => 'Libre',
+                'first_name' => 'Amadou',
+                'last_name' => 'Konaté',
                 'nationality' => 'Mali',
-                'age'         => 23,
-                'position'    => 'Milieu défensif',
-                'foot'        => 'Droit',
-                'height'      => 185,
-                'weight'      => 78,
-                'available'   => true,
-                'matchs'      => 32,
-                'buts'        => 4,
-                'passes'      => 8,
-                'jaunes'      => 6,
-                'rouges'      => 0,
+                'position' => 'Milieu défensif',
+                'strong_foot' => 'Droit',
+                'height_cm' => 185,
+                'weight_kg' => 78,
+                'contract_status' => 'free',
+                'available' => true,
+                'matches_played' => 32,
+                'goals' => 4,
+                'assists' => 8,
+                'yellow_cards' => 6,
+                'red_cards' => 0,
                 'videos' => [
-                    ['title' => 'Highlights Saison 2025/26', 'url' => '#'],
-                    ['title' => 'Compétences défensives',   'url' => '#'],
+                    'Highlights Saison 2025/26',
+                    'Compétences défensives',
                 ],
             ],
             [
-                'name'        => 'Kwame Mensah',
-                'initials'    => 'KM',
-                'status'      => 'Sous contrat',
+                'first_name' => 'Kwame',
+                'last_name' => 'Mensah',
                 'nationality' => 'Ghana',
-                'age'         => 21,
-                'position'    => 'Attaquant',
-                'foot'        => 'Gauche',
-                'height'      => 178,
-                'weight'      => 72,
-                'available'   => false,
-                'matchs'      => 28,
-                'buts'        => 15,
-                'passes'      => 7,
-                'jaunes'      => 3,
-                'rouges'      => 0,
+                'position' => 'Attaquant',
+                'strong_foot' => 'Gauche',
+                'height_cm' => 178,
+                'weight_kg' => 72,
+                'contract_status' => 'contracted',
+                'available' => false,
+                'matches_played' => 28,
+                'goals' => 15,
+                'assists' => 7,
+                'yellow_cards' => 3,
+                'red_cards' => 0,
                 'videos' => [
-                    ['title' => 'Top Buts 2025', 'url' => '#'],
+                    'Top Buts 2025',
                 ],
             ],
             [
-                'name'        => 'Youssef Benali',
-                'initials'    => 'YB',
-                'status'      => 'Avec agent',
+                'first_name' => 'Youssef',
+                'last_name' => 'Benali',
                 'nationality' => 'Maroc',
-                'age'         => 25,
-                'position'    => 'Gardien de but',
-                'foot'        => 'Droit',
-                'height'      => 192,
-                'weight'      => 85,
-                'available'   => true,
-                'matchs'      => 30,
-                'buts'        => 0,
-                'passes'      => 1,
-                'jaunes'      => 2,
-                'rouges'      => 0,
+                'position' => 'Gardien de but',
+                'strong_foot' => 'Droit',
+                'height_cm' => 192,
+                'weight_kg' => 85,
+                'contract_status' => 'agent',
+                'available' => true,
+                'matches_played' => 30,
+                'goals' => 0,
+                'assists' => 1,
+                'yellow_cards' => 2,
+                'red_cards' => 0,
                 'videos' => [
-                    ['title' => 'Arrêts Saison 2025', 'url' => '#'],
+                    'Arrêts Saison 2025',
                 ],
             ],
             [
-                'name'        => 'Emmanuel Okafor',
-                'initials'    => 'EO',
-                'status'      => 'Libre',
+                'first_name' => 'Emmanuel',
+                'last_name' => 'Okafor',
                 'nationality' => 'Nigeria',
-                'age'         => 24,
-                'position'    => 'Défenseur central',
-                'foot'        => 'Droit',
-                'height'      => 188,
-                'weight'      => 82,
-                'available'   => true,
-                'matchs'      => 26,
-                'buts'        => 2,
-                'passes'      => 3,
-                'jaunes'      => 4,
-                'rouges'      => 1,
+                'position' => 'Défenseur central',
+                'strong_foot' => 'Droit',
+                'height_cm' => 188,
+                'weight_kg' => 82,
+                'contract_status' => 'free',
+                'available' => true,
+                'matches_played' => 26,
+                'goals' => 2,
+                'assists' => 3,
+                'yellow_cards' => 4,
+                'red_cards' => 1,
                 'videos' => [
-                    ['title' => 'Highlights Défensifs', 'url' => '#'],
+                    'Highlights Défensifs',
                 ],
             ],
             [
-                'name'        => 'Abdoulaye Diallo',
-                'initials'    => 'AD',
-                'status'      => 'Sous contrat',
+                'first_name' => 'Abdoulaye',
+                'last_name' => 'Diallo',
                 'nationality' => 'Sénégal',
-                'age'         => 20,
-                'position'    => 'Ailier droit',
-                'foot'        => 'Les deux',
-                'height'      => 174,
-                'weight'      => 68,
-                'available'   => false,
-                'matchs'      => 24,
-                'buts'        => 9,
-                'passes'      => 12,
-                'jaunes'      => 2,
-                'rouges'      => 0,
+                'position' => 'Ailier droit',
+                'strong_foot' => 'Les deux',
+                'height_cm' => 174,
+                'weight_kg' => 68,
+                'contract_status' => 'contracted',
+                'available' => false,
+                'matches_played' => 24,
+                'goals' => 9,
+                'assists' => 12,
+                'yellow_cards' => 2,
+                'red_cards' => 0,
                 'videos' => [
-                    ['title' => 'Dribbles et Vitesse', 'url' => '#'],
+                    'Dribbles et Vitesse',
                 ],
             ],
             [
-                'name'        => 'Kofi Asante',
-                'initials'    => 'KA',
-                'status'      => 'Avec agent',
+                'first_name' => 'Kofi',
+                'last_name' => 'Asante',
                 'nationality' => "Côte d'Ivoire",
-                'age'         => 22,
-                'position'    => 'Milieu offensif',
-                'foot'        => 'Gauche',
-                'height'      => 176,
-                'weight'      => 70,
-                'available'   => true,
-                'matchs'      => 29,
-                'buts'        => 11,
-                'passes'      => 14,
-                'jaunes'      => 3,
-                'rouges'      => 0,
+                'position' => 'Milieu offensif',
+                'strong_foot' => 'Gauche',
+                'height_cm' => 176,
+                'weight_kg' => 70,
+                'contract_status' => 'agent',
+                'available' => true,
+                'matches_played' => 29,
+                'goals' => 11,
+                'assists' => 14,
+                'yellow_cards' => 3,
+                'red_cards' => 0,
                 'videos' => [
-                    ['title' => 'Vision de jeu 2025', 'url' => '#'],
+                    'Vision de jeu 2025',
                 ],
             ],
         ];
@@ -138,14 +134,62 @@ class PlayerSeeder extends Seeder
             $videos = $data['videos'];
             unset($data['videos']);
 
-            $player = Player::create($data);
+            /*
+            |--------------------------------------------------------------------------
+            | Création du compte utilisateur du joueur
+            |--------------------------------------------------------------------------
+            */
 
-            foreach ($videos as $video) {
-                Video::create([
-                    'player_id' => $player->id,
-                    'title'     => $video['title'],
-                    'url'       => $video['url'],
-                ]);
+            $email = strtolower(
+                $data['first_name'] . '.' . $data['last_name']
+            ) . '@example.com';
+
+            $user = User::query()->updateOrCreate(
+                ['email' => $email],
+                [
+                    'name' => $data['first_name'] . ' ' . $data['last_name'],
+                    'password' => Hash::make('password'),
+                    'role' => 'joueur',
+                    'locale' => 'fr',
+                    'is_verified' => true,
+                ]
+            );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Création du profil joueur
+            |--------------------------------------------------------------------------
+            */
+
+            $profile = PlayerProfile::query()->updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    ...$data,
+                    'declares_free_agent' => $data['contract_status'] === 'free',
+                    'verification_status' => 'verifie',
+                    'is_premium' => false,
+                    'visibility_score' => 0,
+                ]
+            );
+
+            /*
+            |--------------------------------------------------------------------------
+            | Création des vidéos
+            |--------------------------------------------------------------------------
+            */
+
+            foreach ($videos as $index => $title) {
+                PlayerVideo::query()->updateOrCreate(
+                    [
+                        'player_profile_id' => $profile->id,
+                        'title' => $title,
+                    ],
+                    [
+                        's3_key' => 'demo/player-videos/' . $profile->id . '/' . ($index + 1),
+                        'is_highlight' => $index === 0,
+                        'order' => $index,
+                    ]
+                );
             }
         }
     }

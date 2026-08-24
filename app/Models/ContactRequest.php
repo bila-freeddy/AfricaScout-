@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ContactRequest extends Model
 {
     protected $fillable = [
-        'player_id',
+        'player_profile_id',
         'requester_user_id',
         'recipient_user_id',
         'status',
@@ -23,9 +23,9 @@ class ContactRequest extends Model
         ];
     }
 
-    public function player(): BelongsTo
+    public function playerProfile(): BelongsTo
     {
-        return $this->belongsTo(Player::class);
+        return $this->belongsTo(PlayerProfile::class);
     }
 
     public function requester(): BelongsTo
@@ -37,5 +37,4 @@ class ContactRequest extends Model
     {
         return $this->belongsTo(User::class, 'recipient_user_id');
     }
-
 }

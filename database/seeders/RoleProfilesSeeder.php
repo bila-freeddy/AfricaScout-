@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Player;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +11,12 @@ class RoleProfilesSeeder extends Seeder
 {
     public function run(): void
     {
+        /*
+        |--------------------------------------------------------------------------
+        | Utilisateurs de démonstration
+        |--------------------------------------------------------------------------
+        */
+
         $joueur = User::query()->updateOrCreate(
             ['email' => 'joueur@example.com'],
             [
@@ -45,6 +50,12 @@ class RoleProfilesSeeder extends Seeder
             ]
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Profil du joueur libre
+        |--------------------------------------------------------------------------
+        */
+
         DB::table('player_profiles')->updateOrInsert(
             ['user_id' => $joueur->id],
             [
@@ -52,10 +63,32 @@ class RoleProfilesSeeder extends Seeder
                 'free_agent_proof_type' => 'attestation_federation',
                 'free_agent_proof_reference' => 'AFF-2026-001',
                 'verification_status' => 'verifie',
+
+                'first_name' => 'Joueur',
+                'last_name' => 'Libre Demo',
+                'strong_foot' => 'Droit',
+                'contract_status' => 'free',
+
+                'matches_played' => 0,
+                'goals' => 0,
+                'assists' => 0,
+                'yellow_cards' => 0,
+                'red_cards' => 0,
+
+                'is_premium' => false,
+                'available' => true,
+                'visibility_score' => 0,
+
                 'updated_at' => now(),
                 'created_at' => now(),
             ]
         );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Profil agent recruteur
+        |--------------------------------------------------------------------------
+        */
 
         DB::table('agent_recruiter_profiles')->updateOrInsert(
             ['user_id' => $agent->id],
@@ -70,6 +103,12 @@ class RoleProfilesSeeder extends Seeder
             ]
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Profil club
+        |--------------------------------------------------------------------------
+        */
+
         DB::table('club_profiles')->updateOrInsert(
             ['user_id' => $club->id],
             [
@@ -83,19 +122,5 @@ class RoleProfilesSeeder extends Seeder
                 'created_at' => now(),
             ]
         );
-
-        Player::query()->where('status', 'Libre')->update([
-            'owner_user_id' => $joueur->id,
-            'club_user_id' => null,
-            'agent_user_id' => null,
-        ]);
-
-        Player::query()->where('status', 'Sous contrat')->update([
-            'club_user_id' => $club->id,
-        ]);
-
-        Player::query()->where('status', 'Avec agent')->update([
-            'agent_user_id' => $agent->id,
-        ]);
     }
 }
