@@ -45,10 +45,12 @@ class PlayerProfile extends Model
     ];
 
     protected $appends = [
-        'age',
-        'photo_url',
-        'full_name',
-        'initials',
+    'age',
+    'photo_url',
+    'full_name',
+    'initials',
+    'contract_status',
+    'has_agent',
     ];
 
     /*
@@ -116,4 +118,33 @@ class PlayerProfile extends Model
 
         return strtoupper($firstInitial . $lastInitial);
     }
+
+    
+    public function getContractStatusAttribute(): string
+    {
+        if ($this->club_user_id) {
+            return 'contracted';
+    }
+        if ($this->agent_user_id) {
+        return 'with_agent';
+    }
+    return 'free';
+    }
+
+    public function getHasAgentAttribute(): bool
+    {
+        return $this->agent_user_id !== null;
+    }
+
+
+
+
+    public function pendingAgent(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'pending_agent_user_id');
+    }    
+
+
+
+
 }

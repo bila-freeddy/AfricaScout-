@@ -5,21 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Document extends Model
+class Notification extends Model
 {
     protected $fillable = [
         'user_id',
         'type',
-        'file_path',
-        'status',
-        'rejection_reason',
-        'reviewed_at',
+        'title',
+        'body',
+        'data',
+        'is_read',
+        'read_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'reviewed_at' => 'datetime',
+            'data'    => 'array',
+            'is_read' => 'boolean',
+            'read_at' => 'datetime',
         ];
     }
 
@@ -28,8 +31,10 @@ class Document extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function isValidated(): bool
+    public function markAsRead(): void
     {
-        return $this->status === 'valide';
+        if (!$this->is_read) {
+            $this->update(['is_read' => true, 'read_at' => now()]);
+        }
     }
 }

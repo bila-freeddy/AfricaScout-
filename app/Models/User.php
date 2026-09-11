@@ -68,11 +68,35 @@ class User extends Authenticatable
 
     public function sentContactRequests()
     {
-        return $this->hasMany(ContactRequest::class, 'requester_id');
+        return $this->hasMany(ContactRequest::class, 'requester_user_id');
     }
-
     public function receivedContactRequests()
     {
-        return $this->hasMany(ContactRequest::class, 'target_user_id');
+        return $this->hasMany(ContactRequest::class, 'recipient_user_id');
+
     }
+    public function conversationsAsParticipantOne()
+{
+    return $this->hasMany(Conversation::class, 'participant_1_id');
 }
+
+public function conversationsAsParticipantTwo()
+{
+    return $this->hasMany(Conversation::class, 'participant_2_id');
+}
+
+
+public function documents()
+{
+    return $this->hasMany(Document::class);
+}
+
+public function unreadNotifications()
+{
+    return $this->hasMany(Notification::class)->where('is_read', false);
+}
+
+
+
+}
+

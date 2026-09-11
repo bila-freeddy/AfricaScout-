@@ -5,21 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Document extends Model
+class Subscription extends Model
 {
     protected $fillable = [
         'user_id',
-        'type',
-        'file_path',
+        'plan',
         'status',
-        'rejection_reason',
-        'reviewed_at',
+        'payment_provider',
+        'external_subscription_id',
+        'starts_at',
+        'ends_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'reviewed_at' => 'datetime',
+            'starts_at' => 'datetime',
+            'ends_at'   => 'datetime',
         ];
     }
 
@@ -28,8 +30,9 @@ class Document extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function isValidated(): bool
+    public function isActive(): bool
     {
-        return $this->status === 'valide';
+        return $this->status === 'active'
+            && (!$this->ends_at || $this->ends_at->isFuture());
     }
 }

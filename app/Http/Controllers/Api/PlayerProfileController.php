@@ -17,7 +17,14 @@ class PlayerProfileController extends Controller
         $players = PlayerProfile::with('user')
             ->when($request->position, fn($q) => $q->where('position', $request->position))
             ->when($request->nationality, fn($q) => $q->where('nationality', $request->nationality))
-            ->when($request->contract_status, fn($q) => $q->where('contract_status', $request->contract_status))
+            ->when($request->contract_status, function ($q) use ($request) {
+    match ($request->contract_status) {
+        'free'       => $q->whereNull('club_user_id')->whereNull('agent_user_id'),
+        'contracted' => $q->whereNotNull('club_user_id'),
+        'with_agent' => $q->whereNotNull('agent_user_id')->whereNull('club_user_id'),
+        default      => null,
+    };
+    })
             ->when($request->strong_foot, fn($q) => $q->where('strong_foot', $request->strong_foot))
             ->when($request->available, fn($q) => $q->where('available', true))
             ->orderByDesc('visibility_score')
@@ -108,26 +115,31 @@ class PlayerProfileController extends Controller
     }
 
     // PUT /api/v1/players/{playerProfile}
-    public function update(PlayerProfileRequest $request, PlayerProfile $playerProfile)
+    public function update(UpdatePlayerProfileRequest $request, PlayerProfile $playerProfile)
     {
-        if ($playerProfile->user_id !== $request->user()->id) {
+        $authorized = $playerProfile->club_user_id
+            ? $playerProfile->club_user_id === $request->user()->id
+            : $playerProfile->user_id === $request->user()->id;
+
+        if (!$authorized) {
             return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
-        }
+    }
 
-        $playerProfile->update($request->validated());
+    $playerProfile->update($request->validated());
 
-        return response()->json([
-            'success' => true,
-            'data'    => $playerProfile->fresh(),
-        ]);
+    return response()->json(['success' => true, 'data' => $playerProfile->fresh()]);
     }
 
     // DELETE /api/v1/players/{playerProfile}
     public function destroy(PlayerProfile $playerProfile)
     {
-        if ($playerProfile->user_id !== auth()->id()) {
-            return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
-        }
+        $authorized = $playerProfile->club_user_id
+        ? $playerProfile->club_user_id === auth()->id()
+        : $playerProfile->user_id === auth()->id();
+
+        if (!$authorized) {
+        return response()->json(['success' => false, 'message' => 'Forbidden'], 403);
+    }
 
         $playerProfile->delete();
 
@@ -175,5 +187,10 @@ class PlayerProfileController extends Controller
         'success' => true,
         'photo' => asset('storage/'.$path),
     ]);
+
+
 }
+ 
+
+
 }

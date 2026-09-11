@@ -32,15 +32,14 @@ class AuthController extends Controller
     ]);
 
     // Création automatique du profil selon le rôle
-   match ($validated['role']) {
+      $nameParts = explode(' ', trim($validated['name']));
+   $firstName = $nameParts[0];
+   $lastName  = implode(' ', array_slice($nameParts, 1)) ?: $nameParts[0];
+
+    match ($validated['role']) {
     'joueur'    => $user->playerProfile()->create([
-        'first_name'      => explode(' ', $validated['name'])[0],
-        'last_name'       => explode(' ', $validated['name'])[1] ?? '',
-        'position'        => 'ST',
-        'strong_foot'     => 'right',
-        'contract_status' => 'free',
-        'nationality'     => 'AFR',
-        'date_of_birth'   => now()->subYears(20),
+        'first_name' => $firstName,
+        'last_name'  => $lastName,
     ]),
     'club'      => $user->clubProfile()->create([
         'club_name' => $validated['name'],

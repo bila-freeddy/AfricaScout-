@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PlayerProfileController;
 use App\Http\Controllers\Api\PlayerVideoController;
+use App\Http\Controllers\Api\PlayerAssignmentController;
+use App\Http\Controllers\Api\ContactRequestController;
+use App\Http\Controllers\Api\ConversationController;
+use App\Http\Controllers\Api\MessageController;
 
 Route::prefix('v1')->group(function () {
 
@@ -44,6 +48,17 @@ Route::prefix('v1')->group(function () {
 
         /*
         |--------------------------------------------------------------------------
+        | Assignation club / agent (Ticket 9)
+        |--------------------------------------------------------------------------
+        */
+
+        Route::post('/players/{playerProfile}/assign-club', [PlayerAssignmentController::class, 'assignClub']);
+        Route::post('/players/{playerProfile}/assign-agent', [PlayerAssignmentController::class, 'assignAgent']);
+        Route::post('/players/me/confirm-agent', [PlayerAssignmentController::class, 'confirmAgent']);
+        Route::post('/players/me/reject-agent', [PlayerAssignmentController::class, 'rejectAgent']);
+
+        /*
+        |--------------------------------------------------------------------------
         | Vidéos du joueur connecté
         |--------------------------------------------------------------------------
         */
@@ -51,6 +66,27 @@ Route::prefix('v1')->group(function () {
         Route::get('/players/me/videos', [PlayerVideoController::class, 'index']);
         Route::post('/players/me/videos', [PlayerVideoController::class, 'store']);
         Route::delete('/players/me/videos/{playerVideo}', [PlayerVideoController::class, 'destroy']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Demandes de contact (Ticket 4bis)
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/contact-requests', [ContactRequestController::class, 'index']);
+        Route::post('/contact-requests', [ContactRequestController::class, 'store']);
+        Route::patch('/contact-requests/{contactRequest}/status', [ContactRequestController::class, 'updateStatus']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Messagerie
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/conversations', [ConversationController::class, 'index']);
+        Route::get('/conversations/{conversation}', [ConversationController::class, 'show']);
+        Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index']);
+        Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store']);
     });
 
     /*

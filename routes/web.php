@@ -61,12 +61,3 @@ Route::get('/club/signup', fn() => Inertia::render('ClubSignup'));
 Route::post('/players/{player}/videos', [ClubPlayerVideoController::class, 'store'])
     ->middleware('auth')->name('players.videos.store');
 
-// ─── Contact Requests ─────────────────────────────────────────────
-Route::middleware('auth')->group(function () {
-    Route::post('/contact-requests', [ContactRequestController::class, 'store'])
-        ->name('contact-requests.store');
-    Route::get('/contact-requests', [ContactRequestController::class, 'index'])
-        ->name('contact-requests.index');
-    Route::patch('/contact-requests/{contactRequest}/status', [ContactRequestController::class, 'updateStatus'])
-        ->name('contact-requests.update-status');
-});
